@@ -1,16 +1,24 @@
 const poll = require('../app/database');
 class UserService {
-    async register (username, password) {
+    // 注册用户
+    async register(username, password) {
         try {
             const sql = `INSERT INTO user (username, password) VALUES(?,?);`;
             const result = await poll.execute(sql, [username, password]);
-            console.log(2);
-            console.log(result);
             return result;
         } catch (error) {
             console.log(error);
         }
-        
+    }
+    // 根据用户名查找用户
+    async judgeExistUser(username) {
+        try {
+            const sql = `SELECT * FROM user WHERE user.username = ?;`;
+            const [result] = await poll.execute(sql, [username]);
+            return result;
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
