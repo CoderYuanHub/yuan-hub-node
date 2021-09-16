@@ -24,9 +24,19 @@ npm run start
 
 本项目使用的数据库是`mysql8.0.26`版本，本项目有用户表、头像表、动态表、评论表、文件表、标签表以及标签和动态的关系表。sql语句在项目中。
 
+## 用户数据加密处理（JWT的使用）
 
 
 
+## 本地加密（openssl）
+
+1. 进入openssl环境: `opemssl`。
+2. 生成私钥: `genrsa -out 私钥名称 大小` ，例：`genrsa -out private.key 1024` 。
+3. 生成公钥: `rsa -in 私钥名称 -pubout -out 公钥名称`，例: `rsa -in private.key -pubout -out public.key`。
 
 
+
+## 读取.env文件（dotenv）
+
+具体操作可以查阅NPM中dotenv简介:https://www.npmjs.com/package/dotenv
 
