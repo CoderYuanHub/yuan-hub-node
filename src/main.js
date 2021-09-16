@@ -1,6 +1,7 @@
 const app = require('./app/index');
+const { APP_PORT } = require('./app/config');
 
 
-app.listen(8080, () => {
+app.listen(APP_PORT, () => {
     console.log('yuanhub is running ~');
 })

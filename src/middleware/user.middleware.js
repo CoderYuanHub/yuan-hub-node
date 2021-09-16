@@ -9,10 +9,12 @@ const judgeExistUser = async (ctx, next) => {
         return ctx.app.emit('error', error, ctx);
     }
     const reslut = await userService.judgeExistUser(username);
-    if (reslut) {
+    if (reslut.length) {
         const error = new Error(errorTypes.NAME_ALREADY_EXISIS);
         return ctx.app.emit('error', error, ctx);
     }
+    ctx.user = reslut[0];
+    await next();
 }
 
 module.exports = {
