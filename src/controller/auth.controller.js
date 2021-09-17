@@ -1,13 +1,17 @@
-// const userService = require('../service/user.service');
-
+const JWT = require('jsonwebtoken');
+const { PRIVATE_KEY } = require('../app/config');
 class AuthController {
     // 用户登陆
     async login(ctx, next) {
-        ctx.body = '登陆成功～';
-        // const { username, password } = ctx.request.body;
-        
-        // const result = await userService.judgeExistUser(username);
-        // return result;
+        const { id, username } = ctx.user;
+        const token = JWT.sign({id, username}, PRIVATE_KEY, {
+            expiresIn: 60 * 60 * 24 //设置token时长，单位秒
+        });
+        ctx.body = {
+            id,
+            username,
+            token
+        };
     }
 }
 
