@@ -24,9 +24,37 @@ npm run start
 
 本项目使用的数据库是`mysql8.0.26`版本，本项目有用户表、头像表、动态表、评论表、文件表、标签表以及标签和动态的关系表。sql语句在项目中。
 
-## 用户数据加密处理（JWT的使用）
+## JWT实现token机制
 
+jwt生成token的三步：header, payload,signature;
 
+安装JWT包`npm install jsonwebtoken`，如下是项目中的使用
+
+```javascript
+//引入依赖包
+const JWT = require('jsonwebtoken');
+//openssl生成的私钥
+const { PRIVATE_KEY } = require('../app/config');
+class authController {
+    async login (ctx, next) {
+        const { id, name } = ctx.user;
+        // jwt生成token
+        const token = JWT.sign({id, name}, PRIVATE_KEY, {
+            expiresIn: 60 * 60 * 24, //设置时长
+            algorithm: 'RS256' //加密方式
+        })
+        ctx.body = {
+            id,
+            name,
+            token
+        };
+    }
+    async success (ctx, next) {
+        ctx.body = '成功获取token～';
+    }
+}
+module.exports = new authController();
+```
 
 ## 本地加密（openssl）
 
